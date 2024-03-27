@@ -16,25 +16,28 @@ class HomeScreen extends StatelessWidget {
     return MultiCubitProvider(
       child: BlocConsumer<GeneratePromptCubit, GeneratePromptState>(
         listener: (context, state) {
-          ///
-          /// If prompt is success, add Gemini response to chatview and execute scroll
-          ///
-          state.whenOrNull(
-            loaded: (text) {
+          switch (state) {
+            case Loaded():
+
+              ///
+              /// If prompt is success, add Gemini response to chatview and execute scroll
+              ///
               context.read<ChatMessagesCubit>().addMessage(MessageEntity(
-                    message: text,
+                    message: state.text,
                     whoWrite: FromWho.they,
                   ));
               context.read<ChatScrollCubit>().scrollChat();
-            },
-            error: (error) {
+              break;
+            case Error():
+
               /// Show bubble with failure message
               context.read<ChatMessagesCubit>().addMessage(MessageEntity(
-                    message: error,
+                    message: state.failure,
                     whoWrite: FromWho.they,
                   ));
-            },
-          );
+              break;
+            case _:
+          }
         },
         builder: (context, state) {
           return Scaffold(

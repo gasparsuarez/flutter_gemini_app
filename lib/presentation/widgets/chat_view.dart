@@ -19,15 +19,22 @@ class _ChatViewState extends State<ChatView> {
   Widget build(BuildContext context) {
     return BlocListener<ChatScrollCubit, ChatScrollState>(
       listener: (context, state) {
-        state.whenOrNull(scrolling: () {
-          WidgetsBinding.instance.addPostFrameCallback((_) {
-            _scrollController.animateTo(
-              _scrollController.position.maxScrollExtent,
-              duration: const Duration(milliseconds: 300),
-              curve: Curves.easeOut,
-            );
-          });
-        });
+        switch (state) {
+          case Scrolling _:
+
+            ///
+            /// Move scroll when user or AI send new message
+            ///
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              _scrollController.animateTo(
+                _scrollController.position.maxScrollExtent,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.easeOut,
+              );
+            });
+            break;
+          case _:
+        }
       },
       child: BlocBuilder<ChatMessagesCubit, ChatMessagesState>(
         builder: (context, state) {
