@@ -9,6 +9,8 @@
 .history
 .svn/
 .env
+*.freezed.dart
+*.g.dart
 migrate_working_dir/
 
 # IntelliJ related
