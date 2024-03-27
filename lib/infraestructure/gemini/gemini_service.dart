@@ -18,7 +18,10 @@ class GeminiService {
   ///
   /// Create Model
   ///
-  static final GenerativeModel _model = GenerativeModel(model: _modelType, apiKey: apiKey);
+  static final GenerativeModel _model = GenerativeModel(
+    model: _modelType,
+    apiKey: apiKey,
+  );
 
   /// Getters
   GenerativeModel get model => _model;

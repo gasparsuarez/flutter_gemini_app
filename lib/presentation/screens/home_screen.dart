@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini_app/core/core.dart';
-import 'package:flutter_gemini_app/domain/repositories/gemini_repository.dart';
+import 'package:flutter_gemini_app/domain/domain.dart';
 import 'package:flutter_gemini_app/presentation/bloc/input_bloc.dart';
-import 'package:flutter_gemini_app/presentation/cubits/cubit/generate_prompt_cubit.dart';
-import 'package:flutter_gemini_app/presentation/widgets/response_container.dart';
+import 'package:flutter_gemini_app/presentation/cubits/cubits.dart';
+import 'package:flutter_gemini_app/presentation/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -14,24 +13,88 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final inputBloc = InputBloc();
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => GeneratePromptCubit(
-            getIt.get<GeminiRepository>(),
-          ),
-        ),
-      ],
-      child: BlocBuilder<GeneratePromptCubit, GeneratePromptState>(
+    return MultiCubitProvider(
+      child: BlocConsumer<GeneratePromptCubit, GeneratePromptState>(
+        listener: (context, state) {
+          ///
+          /// If prompt is success, add Gemini response to chatview and execute scroll
+          ///
+          state.whenOrNull(
+            loaded: (text) {
+              context.read<ChatMessagesCubit>().addMessage(MessageEntity(
+                    message: text,
+                    whoWrite: FromWho.they,
+                  ));
+              context.read<ChatScrollCubit>().scrollChat();
+            },
+            error: (error) {
+              /// Show bubble with failure message
+              context.read<ChatMessagesCubit>().addMessage(MessageEntity(
+                    message: error,
+                    whoWrite: FromWho.they,
+                  ));
+            },
+          );
+        },
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
               backgroundColor: Colors.lightBlue,
-              title: const Text('Google Gemini AI'),
+              toolbarHeight: context.height * 0.1,
+              centerTitle: false,
+              flexibleSpace: SafeArea(
+                child: FlexibleSpaceBar(
+                  title: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(left: context.width * 0.02),
+                        child: Row(
+                          children: [
+                            const Text('Google Gemini AI'),
+                            SizedBox(
+                              width: context.width * 0.04,
+                            ),
+                            const Spacer(),
+                            TextButton(
+                              onPressed: () => context.read<ChatMessagesCubit>().clearChat(),
+                              child: const Text(
+                                'CLEAR',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      BlocBuilder<GeneratePromptCubit, GeneratePromptState>(
+                        builder: (context, state) {
+                          return state.maybeWhen(
+                            loading: () => Padding(
+                              padding: EdgeInsets.symmetric(horizontal: context.width * 0.02),
+                              child: const Text(
+                                'Gemini is typing...',
+                                style: TextStyle(
+                                  fontSize: 16,
+                                ),
+                              ),
+                            ),
+                            orElse: () => const SizedBox.shrink(),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              leadingWidth: context.width * 0.08,
             ),
             body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const ResponseContainer(),
+                const ChatView(),
                 Container(
                   color: Colors.lightBlue,
                   child: Padding(
@@ -64,13 +127,25 @@ class HomeScreen extends StatelessWidget {
                               color: Colors.grey[300],
                             ),
                             child: IconButton(
-                              style: IconButton.styleFrom(),
                               onPressed: () {
                                 if (inputBloc.inputController.text.isEmpty) return;
 
-                                context
-                                    .read<GeneratePromptCubit>()
-                                    .generateResponse(inputBloc.inputText);
+                                /// Add my message to chat view
+                                context.read<ChatMessagesCubit>().addMessage(
+                                      MessageEntity(
+                                        message: inputBloc.inputText,
+                                        whoWrite: FromWho.we,
+                                      ),
+                                    );
+
+                                /// Send prompt to IA
+                                context.read<GeneratePromptCubit>().sendPrompt(inputBloc.inputText);
+
+                                /// Scroll chat
+                                context.read<ChatScrollCubit>().scrollChat();
+
+                                /// Clear Textfield
+                                inputBloc.inputController.clear();
                               },
                               icon: const Icon(Icons.send),
                             ),

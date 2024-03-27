@@ -31,3 +31,10 @@ To run this project, you will need to add the following environment variables to
 - Dotenv [Enviroment Variables]
 - Cubit with Freezed [State Management]
 - Dartz Either for functional programming
+
+## Screenshots
+
+ <img src="assets/app/simulator_screenshot_A009A5BC-445E-4E56-A21D-047D183E15FC.png" width="250"> 
+ <img src="assets/app/simulator_screenshot_9DCC710E-C828-4A5C-B1B3-4790636BDD2D.png" width="250"> 
+ <img src="assets/app/simulator_screenshot_F8D28564-0D54-4AD5-9563-AD805EE14E66.png" width="250"> 
+ <img src="assets/app/simulator_screenshot_81F78C79-8870-4639-826C-EA982A45A1F4.png" width="250">

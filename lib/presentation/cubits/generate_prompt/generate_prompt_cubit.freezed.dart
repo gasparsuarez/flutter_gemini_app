@@ -21,7 +21,7 @@ mixin _$GeneratePromptState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String text) loaded,
-    required TResult Function(String error) error,
+    required TResult Function(String failure) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$GeneratePromptState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String text)? loaded,
-    TResult? Function(String error)? error,
+    TResult? Function(String failure)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$GeneratePromptState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String text)? loaded,
-    TResult Function(String error)? error,
+    TResult Function(String failure)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +127,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String text) loaded,
-    required TResult Function(String error) error,
+    required TResult Function(String failure) error,
   }) {
     return initial();
   }
@@ -138,7 +138,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String text)? loaded,
-    TResult? Function(String error)? error,
+    TResult? Function(String failure)? error,
   }) {
     return initial?.call();
   }
@@ -149,7 +149,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String text)? loaded,
-    TResult Function(String error)? error,
+    TResult Function(String failure)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -241,7 +241,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String text) loaded,
-    required TResult Function(String error) error,
+    required TResult Function(String failure) error,
   }) {
     return loading();
   }
@@ -252,7 +252,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String text)? loaded,
-    TResult? Function(String error)? error,
+    TResult? Function(String failure)? error,
   }) {
     return loading?.call();
   }
@@ -263,7 +263,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String text)? loaded,
-    TResult Function(String error)? error,
+    TResult Function(String failure)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -381,7 +381,7 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String text) loaded,
-    required TResult Function(String error) error,
+    required TResult Function(String failure) error,
   }) {
     return loaded(text);
   }
@@ -392,7 +392,7 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String text)? loaded,
-    TResult? Function(String error)? error,
+    TResult? Function(String failure)? error,
   }) {
     return loaded?.call(text);
   }
@@ -403,7 +403,7 @@ class _$LoadedImpl implements _Loaded {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String text)? loaded,
-    TResult Function(String error)? error,
+    TResult Function(String failure)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -465,7 +465,7 @@ abstract class _$$ErrorImplCopyWith<$Res> {
           _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
       __$$ErrorImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String error});
+  $Res call({String failure});
 }
 
 /// @nodoc
@@ -479,12 +479,12 @@ class __$$ErrorImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? error = null,
+    Object? failure = null,
   }) {
     return _then(_$ErrorImpl(
-      null == error
-          ? _value.error
-          : error // ignore: cast_nullable_to_non_nullable
+      null == failure
+          ? _value.failure
+          : failure // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -493,14 +493,14 @@ class __$$ErrorImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ErrorImpl implements _Error {
-  const _$ErrorImpl(this.error);
+  const _$ErrorImpl(this.failure);
 
   @override
-  final String error;
+  final String failure;
 
   @override
   String toString() {
-    return 'GeneratePromptState.error(error: $error)';
+    return 'GeneratePromptState.error(failure: $failure)';
   }
 
   @override
@@ -508,11 +508,11 @@ class _$ErrorImpl implements _Error {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorImpl &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.failure, failure) || other.failure == failure));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, error);
+  int get hashCode => Object.hash(runtimeType, failure);
 
   @JsonKey(ignore: true)
   @override
@@ -526,9 +526,9 @@ class _$ErrorImpl implements _Error {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String text) loaded,
-    required TResult Function(String error) error,
+    required TResult Function(String failure) error,
   }) {
-    return error(this.error);
+    return error(failure);
   }
 
   @override
@@ -537,9 +537,9 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String text)? loaded,
-    TResult? Function(String error)? error,
+    TResult? Function(String failure)? error,
   }) {
-    return error?.call(this.error);
+    return error?.call(failure);
   }
 
   @override
@@ -548,11 +548,11 @@ class _$ErrorImpl implements _Error {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String text)? loaded,
-    TResult Function(String error)? error,
+    TResult Function(String failure)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(this.error);
+      return error(failure);
     }
     return orElse();
   }
@@ -596,9 +596,9 @@ class _$ErrorImpl implements _Error {
 }
 
 abstract class _Error implements GeneratePromptState {
-  const factory _Error(final String error) = _$ErrorImpl;
+  const factory _Error(final String failure) = _$ErrorImpl;
 
-  String get error;
+  String get failure;
   @JsonKey(ignore: true)
   _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
