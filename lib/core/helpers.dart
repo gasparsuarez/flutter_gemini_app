@@ -1,4 +1,4 @@
-import 'package:flutter_gemini_app/domain/domain.dart';
+import 'package:flutter_gemini_app/domain/failures/failures.dart';
 
 class Helpers {
   ///

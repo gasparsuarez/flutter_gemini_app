@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini_app/core/helpers.dart';
+import 'package:flutter_gemini_app/domain/either/either.dart';
 import 'package:flutter_gemini_app/domain/repositories/gemini_repository.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -14,15 +15,17 @@ class GeneratePromptCubit extends Cubit<GeneratePromptState> {
   void sendPrompt(String prompt) async {
     emit(const GeneratePromptState.loading());
 
-    final response = await _repository.generateResponse(prompt);
+    final results = await _repository.generateResponse(prompt);
 
-    response.fold(
-      (failure) => emit(
-        GeneratePromptState.error(Helpers.parseFailureToString(failure)),
-      ),
-      (text) => emit(
-        GeneratePromptState.loaded(text),
-      ),
-    );
+    switch (results) {
+      case Right():
+        emit(
+          GeneratePromptState.loaded(results.right),
+        );
+      case Left():
+        emit(
+          GeneratePromptState.error(Helpers.parseFailureToString(results.left)),
+        );
+    }
   }
 }

@@ -30,7 +30,6 @@ To run this project, you will need to add the following environment variables to
 - Clean Architecture [DDD Pattern]
 - Dotenv [Enviroment Variables]
 - Cubit with Freezed [State Management]
-- Dartz Either for functional programming
 
 ## Screenshots
 
