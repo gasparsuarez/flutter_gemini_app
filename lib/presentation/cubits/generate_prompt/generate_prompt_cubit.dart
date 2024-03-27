@@ -13,10 +13,13 @@ class GeneratePromptCubit extends Cubit<GeneratePromptState> {
   GeneratePromptCubit(this._repository) : super(const GeneratePromptState.initial());
 
   void sendPrompt(String prompt) async {
+    /// Emit loading state
     emit(const GeneratePromptState.loading());
 
+    /// Send user prompt to IA
     final results = await _repository.generateResponse(prompt);
 
+    /// Filter result and emit new state
     switch (results) {
       case Right():
         emit(

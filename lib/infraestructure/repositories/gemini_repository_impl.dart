@@ -16,10 +16,9 @@ class GeminiRepositoryImpl implements GeminiRepository {
     try {
       final response = await _datasource.generateResponse(prompt);
       return Either.right(response.text!);
+    } on SocketException catch (_) {
+      return Either.left(const Failure.networkError());
     } catch (e) {
-      if (e is SocketException) {
-        return Either.left(const Failure.networkError());
-      }
       return Either.left(const Failure.explicitMessage());
     }
   }
