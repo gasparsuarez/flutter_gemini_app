@@ -89,6 +89,9 @@ class MessageContainer extends StatelessWidget {
     );
   }
 
+  ///
+  /// Format date to hour:minutes [PM/AM]
+  ///
   String _formatDate(DateTime dateTime) {
     return DateFormat('h:mm a').format(dateTime);
   }

@@ -34,6 +34,5 @@ To run this project, you will need to add the following environment variables to
 ## Screenshots
 
  <img src="assets/app/simulator_screenshot_A009A5BC-445E-4E56-A21D-047D183E15FC.png" width="250"> 
- <img src="assets/app/simulator_screenshot_9DCC710E-C828-4A5C-B1B3-4790636BDD2D.png" width="250"> 
- <img src="assets/app/simulator_screenshot_F8D28564-0D54-4AD5-9563-AD805EE14E66.png" width="250"> 
- <img src="assets/app/simulator_screenshot_CBC57EDF-1C29-4F27-9361-83D90B0D8A54.png" width="250">
+ <img src="assets/app/simulator_screenshot_989C3FCA-58FC-4A24-8F2A-C2FD5851C039.png" width="250"> 
+ <img src="assets/app/simulator_screenshot_06ACF30F-E3E1-4ACB-8D2E-4892E5DC5CAE.png" width="250">
