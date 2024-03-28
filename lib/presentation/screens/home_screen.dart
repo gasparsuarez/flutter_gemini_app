@@ -25,15 +25,17 @@ class HomeScreen extends StatelessWidget {
               context.read<ChatMessagesCubit>().addMessage(MessageEntity(
                     message: state.text,
                     whoWrite: FromWho.they,
+                    createdAt: DateTime.now(),
                   ));
               context.read<ChatScrollCubit>().scrollChat();
               break;
             case Error():
 
-              /// Show bubble with failure message
+              ///If prompt is failure,  Show bubble with failure message
               context.read<ChatMessagesCubit>().addMessage(MessageEntity(
                     message: state.failure,
                     whoWrite: FromWho.they,
+                    createdAt: DateTime.now(),
                   ));
               break;
             case _:
@@ -138,6 +140,7 @@ class HomeScreen extends StatelessWidget {
                                       MessageEntity(
                                         message: inputBloc.inputText,
                                         whoWrite: FromWho.we,
+                                        createdAt: DateTime.now(),
                                       ),
                                     );
 

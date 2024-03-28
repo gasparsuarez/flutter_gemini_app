@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemini_app/core/core.dart';
-import 'package:flutter_gemini_app/domain/entities/entities.dart';
 import 'package:flutter_gemini_app/presentation/cubits/cubits.dart';
 import 'package:flutter_gemini_app/presentation/widgets/widgets.dart';
 
@@ -55,8 +54,7 @@ class _ChatViewState extends State<ChatView> {
                   itemBuilder: (_, index) {
                     final message = state.messages[index];
                     return MessageContainer(
-                      message: message.message,
-                      weWrite: message.whoWrite == FromWho.we,
+                      message: message,
                     );
                   },
                 ),

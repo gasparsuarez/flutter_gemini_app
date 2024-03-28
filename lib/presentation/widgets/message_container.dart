@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini_app/core/core.dart';
+import 'package:flutter_gemini_app/domain/domain.dart';
 import 'package:flutter_gemini_app/presentation/widgets/gemini_avatar.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:intl/intl.dart';
 
 class MessageContainer extends StatelessWidget {
-  final String message;
-  final bool weWrite;
+  final MessageEntity message;
   const MessageContainer({
     super.key,
     required this.message,
-    required this.weWrite,
   });
 
   @override
   Widget build(BuildContext context) {
+    const double radius = 12;
+    bool weWrite = message.whoWrite == FromWho.we;
+
     ///
     /// Message bubble border radius
     ///
-    const double radius = 12;
     final borderRadius = weWrite
         ? const BorderRadius.only(
             topLeft: Radius.circular(radius),
@@ -63,13 +65,31 @@ class MessageContainer extends StatelessWidget {
               ],
               borderRadius: borderRadius,
             ),
-            child: MarkdownBody(
-              selectable: true,
-              data: message,
+            child: Column(
+              crossAxisAlignment: weWrite ? CrossAxisAlignment.start : CrossAxisAlignment.end,
+              children: [
+                MarkdownBody(
+                  selectable: true,
+                  data: message.message,
+                ),
+                Text(
+                  _formatDate(
+                    message.createdAt,
+                  ),
+                  style: TextStyle(
+                    color: Colors.grey[700],
+                    fontSize: 12,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
       ],
     );
+  }
+
+  String _formatDate(DateTime dateTime) {
+    return DateFormat('h:mm a').format(dateTime);
   }
 }
