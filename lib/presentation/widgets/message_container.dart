@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gemini_app/core/core.dart';
 import 'package:flutter_gemini_app/presentation/widgets/gemini_avatar.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class MessageContainer extends StatelessWidget {
   final String message;
@@ -62,8 +63,9 @@ class MessageContainer extends StatelessWidget {
               ],
               borderRadius: borderRadius,
             ),
-            child: Text(
-              message,
+            child: MarkdownBody(
+              selectable: true,
+              data: message,
             ),
           ),
         ),
