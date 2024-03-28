@@ -15,9 +15,10 @@ To run this project, you will need to add the following environment variables to
 2. Run the following commands
 ```bash
   flutter pub get
+  dart run build_runner build
 ```
 2. Change .env.template to .env and set Gemini API Key
-3. Run flutter app
+4. Run flutter app
 ```bash
   flutter run
 ```
